@@ -5,6 +5,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
 
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -15,11 +20,12 @@
     self,
     nixpkgs,
     nixpkgs-stable,
+    nix-darwin,
     home-manager,
     ...
   }: {
+    # NixOS
     nixosConfigurations = {
-      # Host name
       nixos-parallels = nixpkgs.lib.nixosSystem {
         specialArgs = let
           system = "aarch64-linux";
@@ -45,6 +51,10 @@
           }
         ];
       };
+    };
+
+    darwinConfigurations.Pixdanes-MateBook-Pro = nix-darwin.lib.darwinSystem {
+        modules = [ ./hosts/pixdane-matebook-pro ];
     };
   };
 }
