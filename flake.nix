@@ -31,6 +31,10 @@
         system = "aarch64-linux";
         specialArgs = {
           inherit user system;
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
           pkgs-stable = import nixpkgs-stable {
             inherit system;
             config.allowUnfree = true;
@@ -46,7 +50,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.${user} = import ./home/nixos.nix;
+              home-manager.users.${user} = import ./home/nixos.nix specialArgs;
 
               # home-manager.extraSpecialArgs = inputs;
             }
