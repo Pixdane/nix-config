@@ -24,37 +24,68 @@
     home-manager,
     ...
   }: {
-    # NixOS
     nixosConfigurations = {
-      nixos-parallels = nixpkgs.lib.nixosSystem {
-        specialArgs = let
-          system = "aarch64-linux";
-        in {
+      # NixOS: Parallels Desktop
+      nixos-parallels = let
+        user = "pixdane";
+        system = "aarch64-linux";
+        specialArgs = {
+          inherit user system;
           pkgs-stable = import nixpkgs-stable {
             inherit system;
             config.allowUnfree = true;
           };
         };
-        
-        modules = [
-          ./hosts/nixos-parallels
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit specialArgs;
+          modules = [
+            ./hosts/nixos-parallels
 
-          home-manager.nixosModules.home-manager
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${user} = import ./home/nixos.nix;
 
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.pixdane = import ./home;
-
-            # home-manager.extraSpecialArgs = inputs;  
-          }
-        ];
-      };
+              # home-manager.extraSpecialArgs = inputs;
+            }
+          ];
+        };
     };
 
-    darwinConfigurations.Pixdanes-MateBook-Pro = nix-darwin.lib.darwinSystem {
-        modules = [ ./hosts/pixdane-matebook-pro ];
+    darwinConfigurations = {
+      # MacBook Pro (16-inch, 2021, M1 Pro)
+      Pixdanes-MateBook-Pro = let
+        user = "pixdane";
+        system = "aarch64-darwin";
+        specialArgs = {
+          inherit user system;
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          pkgs-stable = import nixpkgs-stable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        };
+      in
+        nix-darwin.lib.darwinSystem {
+          inherit specialArgs;
+          modules = [
+            ./hosts/pixdane-matebook-pro
+
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${user} = import ./home/darwin.nix specialArgs;
+
+              # home-manager.extraSpecialArgs = inputs;
+            }
+          ];
+        };
     };
   };
 }

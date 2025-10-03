@@ -1,4 +1,8 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  user,
+  ...
+}:
 
 {
   # Necessary for using flakes on this system.
@@ -22,7 +26,11 @@
     pkgs.fish
     "/opt/homebrew.bin/fish" # Temporarily
   ];
-  users.users.pixdane.shell = pkgs.fish;
+
+  users.users.${user} = {
+    shell = pkgs.fish;
+    home = "/Users/${user}";
+  };
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
