@@ -29,12 +29,8 @@
       nixos-parallels = let
         user = "pixdane";
         system = "aarch64-linux";
-        specialArgs = {
+        specialArgs = inputs // {
           inherit user system;
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
           pkgs-stable = import nixpkgs-stable {
             inherit system;
             config.allowUnfree = true;
@@ -50,9 +46,8 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.${user} = import ./home/nixos.nix specialArgs;
-
-              # home-manager.extraSpecialArgs = inputs;
+              home-manager.users.${user} = import ./home/nixos.nix;
+              home-manager.extraSpecialArgs = inputs // specialArgs;
             }
           ];
         };
@@ -63,12 +58,8 @@
       Pixdanes-MateBook-Pro = let
         user = "pixdane";
         system = "aarch64-darwin";
-        specialArgs = {
+        specialArgs = inputs // {
           inherit user system;
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
           pkgs-stable = import nixpkgs-stable {
             inherit system;
             config.allowUnfree = true;
@@ -84,9 +75,8 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.${user} = import ./home/darwin.nix specialArgs;
-
-              # home-manager.extraSpecialArgs = inputs;
+              home-manager.users.${user} = import ./home/darwin.nix;
+              home-manager.extraSpecialArgs = inputs // specialArgs;
             }
           ];
         };
