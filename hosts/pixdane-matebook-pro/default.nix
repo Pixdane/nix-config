@@ -1,8 +1,12 @@
 {
   pkgs,
   user,
+  lib,
   ...
 }: {
+  # Fix for "file '<nixpkgs>' was not found in the Nix search path (add it using $NIX_PATH or -I)""
+  nix.nixPath = ["$HOME/.nix-defexpr/channels"];
+
   # Necessary for using flakes on this system.
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
