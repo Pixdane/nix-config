@@ -6,10 +6,11 @@
   home.packages = with pkgs; [
     # Nix Formatter
     alejandra
-    # Nix Language Server
+    # Nix's Language Server
     nixd
+    # Fix fish for using Nix
     nix-your-shell
-    # Thefuck replacement
+    # Thefuck's replacement
     pay-respects
   ];
 
