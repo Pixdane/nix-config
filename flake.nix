@@ -16,7 +16,7 @@
     };
   };
 
-  outputs = inputs@{
+  outputs = inputs @ {
     self,
     nixpkgs,
     nixpkgs-stable,
@@ -29,13 +29,15 @@
       nixos-parallels = let
         user = "pixdane";
         system = "aarch64-linux";
-        specialArgs = inputs // {
-          inherit user system;
-          pkgs-stable = import nixpkgs-stable {
-            inherit system;
-            config.allowUnfree = true;
+        specialArgs =
+          inputs
+          // {
+            inherit user system;
+            pkgs-stable = import nixpkgs-stable {
+              inherit system;
+              config.allowUnfree = true;
+            };
           };
-        };
       in
         nixpkgs.lib.nixosSystem {
           inherit specialArgs;
@@ -47,7 +49,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.${user} = import ./home/nixos.nix;
-              home-manager.extraSpecialArgs = inputs // specialArgs;
+              home-manager.extraSpecialArgs = specialArgs;
             }
           ];
         };
@@ -58,13 +60,15 @@
       Pixdanes-MateBook-Pro = let
         user = "pixdane";
         system = "aarch64-darwin";
-        specialArgs = inputs // {
-          inherit user system;
-          pkgs-stable = import nixpkgs-stable {
-            inherit system;
-            config.allowUnfree = true;
+        specialArgs =
+          inputs
+          // {
+            inherit user system;
+            pkgs-stable = import nixpkgs-stable {
+              inherit system;
+              config.allowUnfree = true;
+            };
           };
-        };
       in
         nix-darwin.lib.darwinSystem {
           inherit specialArgs;
@@ -76,7 +80,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.${user} = import ./home/darwin.nix;
-              home-manager.extraSpecialArgs = inputs // specialArgs;
+              home-manager.extraSpecialArgs = specialArgs;
             }
           ];
         };

@@ -3,11 +3,12 @@
   pkgs-stable,
   user,
   ...
-}:
+}: {
+  imports = [
+    ./default.nix
+    ./config
+  ];
 
-{
-  imports = [ ./config ];
-  
   home.username = "${user}";
   home.homeDirectory = "/home/${user}";
 
