@@ -2,6 +2,7 @@
   pkgs,
   user,
   lib,
+  specialArgs,
   ...
 }: {
   # Fix for "file '<nixpkgs>' was not found in the Nix search path (add it using $NIX_PATH or -I)""
@@ -38,4 +39,14 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   nixpkgs.config.allowUnfree = true;
+
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  home-manager.users.${user} = {
+    imports = [
+      ../../home/darwin.nix
+      ./config
+    ];
+  };
+  home-manager.extraSpecialArgs = specialArgs;
 }

@@ -2,17 +2,8 @@
   programs.fish.enable = true;
 
   programs.fish.shellAliases = {
-    code = "open -a \"Visual Studio Code\"";
     "..." = "cd ../..";
   };
-
-  programs.fish.shellInit = ''
-    set -x g16root /Applications/
-    set -x GAUSS_SCRDIR /Applications/g16/scratch
-    bass source /Applications/g16/bsd/g16.profile
-    fish_add_path ~/.local/bin
-    set -x GEMINI_API_KEY AIzaSyBeoQxr9eKjhfIey8jKOdFXHjGt_Jq57Xg
-  '';
 
   programs.fish.plugins = [
     {

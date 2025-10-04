@@ -43,14 +43,7 @@
           inherit specialArgs;
           modules = [
             ./hosts/nixos-parallels
-
             home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${user} = import ./home/nixos.nix;
-              home-manager.extraSpecialArgs = specialArgs;
-            }
           ];
         };
     };
@@ -74,14 +67,7 @@
           inherit specialArgs;
           modules = [
             ./hosts/pixdane-matebook-pro
-
             home-manager.darwinModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${user} = import ./home/darwin.nix;
-              home-manager.extraSpecialArgs = specialArgs;
-            }
           ];
         };
     };
