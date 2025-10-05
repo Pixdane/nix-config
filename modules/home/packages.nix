@@ -8,6 +8,7 @@
     [
       xz
       ripgrep
+      ncdu
       starship
       # Nix Formatter
       alejandra
