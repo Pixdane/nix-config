@@ -1,5 +1,5 @@
 {
-  description = "Sharing home-manager modules between nixos and darwin";
+  description = "Pixdane's NixOS + nix-darwin + home-manager config.";
 
   # Add all your dependencies here
   inputs = {
