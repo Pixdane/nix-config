@@ -12,6 +12,7 @@
     skhd
     sketchybar
     direnv
+    helix
   ];
 
   # only available on linux, disabled on macos

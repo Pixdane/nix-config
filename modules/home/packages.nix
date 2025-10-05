@@ -6,6 +6,7 @@
 }: {
   home.packages = with pkgs;
     [
+      helix
       xz
       zstd
       ntfs3g
