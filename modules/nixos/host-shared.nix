@@ -3,8 +3,6 @@
   inputs,
   ...
 }: {
-  imports = [inputs.self.modules.common.host-shared];
-
   # do not need to keep too much generations
   boot.loader.systemd-boot.configurationLimit = 10;
   # boot.loader.grub.configurationLimit = 10;

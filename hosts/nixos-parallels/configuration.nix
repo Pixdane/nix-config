@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    inputs.self.modules.common.host-shared
     inputs.self.nixosModules.host-shared
   ];
 
