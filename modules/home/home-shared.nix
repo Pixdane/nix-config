@@ -11,6 +11,7 @@
     starship
     skhd
     sketchybar
+    direnv
   ];
 
   # only available on linux, disabled on macos

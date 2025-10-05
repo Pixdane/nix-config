@@ -11,7 +11,6 @@
       ntfs3g
       ripgrep
       ncdu
-      starship
       # Nix Formatter
       alejandra
       # Nix's Language Server
@@ -23,6 +22,9 @@
       # Thefuck's replacement
       pay-respects
       zathura
+      typst
+      ffmpeg
+      mpv
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [
       zip
