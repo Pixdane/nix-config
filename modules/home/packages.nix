@@ -7,6 +7,7 @@
   home.packages = with pkgs;
     [
       xz
+      zstd
       ripgrep
       ncdu
       starship
