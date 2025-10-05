@@ -8,6 +8,7 @@
     [
       xz
       zstd
+      ntfs3g
       ripgrep
       ncdu
       starship
