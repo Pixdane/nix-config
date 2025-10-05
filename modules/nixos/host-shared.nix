@@ -3,6 +3,10 @@
   inputs,
   ...
 }: {
+  imports = with inputs.self.nixosModules; [
+    packages
+  ];
+
   # do not need to keep too much generations
   boot.loader.systemd-boot.configurationLimit = 10;
   # boot.loader.grub.configurationLimit = 10;
@@ -11,13 +15,6 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    git
-    helix
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-    fish
-  ];
 
   # List services that you want to enable:
 

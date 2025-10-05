@@ -3,12 +3,8 @@
   inputs,
   ...
 }: {
-  # Enable alternative shell support in nix-darwin.
-  programs.fish.enable = true;
-
-  # Set login shell to Nix's fish
-  environment.shells = [
-    pkgs.fish
+  imports = with inputs.self.darwinModules; [
+    activate-fish
   ];
 
   # List packages installed in system profile. To search by name, run:
