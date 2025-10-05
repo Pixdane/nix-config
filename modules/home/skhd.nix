@@ -4,8 +4,9 @@
   inputs,
   osConfig,
   ...
-}: {
-  services.skhd = lib.mkIf pkgs.stdenv.isDarwin {
+}:
+lib.mkIf pkgs.stdenv.isDarwin {
+  services.skhd = {
     enable = true;
     config = ''
       # focus window

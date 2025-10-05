@@ -29,6 +29,7 @@
     ])
     ++ lib.optionals pkgs.stdenv.isDarwin (with pkgs; [
       skhd
+      # Sketchybar was installed by home-manager (very strange behavior)
     ]);
   # ++ (
   #   # you can access the host configuration using osConfig.

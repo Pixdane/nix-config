@@ -10,6 +10,7 @@
     git
     starship
     skhd
+    sketchybar
   ];
 
   # only available on linux, disabled on macos
