@@ -16,6 +16,8 @@
 
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixpkgs-python.url = "github:cachix/nixpkgs-python";
   };
 
   # Load the blueprint
