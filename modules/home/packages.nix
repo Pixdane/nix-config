@@ -22,6 +22,7 @@
       nix-your-shell
       # Thefuck's replacement
       pay-respects
+      zathura
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [
       zip
