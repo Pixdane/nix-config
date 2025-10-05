@@ -6,11 +6,14 @@
   imports = [
     inputs.self.modules.common.host-shared
     inputs.self.darwinModules.host-shared
+    inputs.self.darwinModules.yabai
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   users.users.pixdane.home = /Users/pixdane;
+
+  system.primaryUser = "pixdane";
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
