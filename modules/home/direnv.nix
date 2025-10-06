@@ -5,5 +5,6 @@
     enableZshIntegration = true;
     # Already enabled by other config
     # enableFishIntegration = true;
+    nix-direnv.enable = true;
   };
 }
