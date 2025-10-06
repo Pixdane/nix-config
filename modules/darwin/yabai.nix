@@ -35,16 +35,15 @@ lib.mkIf pkgs.stdenv.isDarwin {
 
       # general space settings
       layout = "bsp";
-      top_padding = 10;
+      top_padding = 4;
       bottom_padding = 50;
-      left_padding = 10;
-      right_padding = 10;
-      window_gap = 10;
+      left_padding = 4;
+      right_padding = 4;
+      window_gap = 4;
     };
 
     extraConfig = ''
       yabai -m rule --add app="^系统设置$" manage=off
-      yabai -m rule --add app="^Free Download Manager$" manage=off
       yabai -m rule --add app="^QQ$" manage=off
       yabai -m rule --add app="^微信$" manage=off
       yabai -m rule --add app="^Raycast$" manage=off
