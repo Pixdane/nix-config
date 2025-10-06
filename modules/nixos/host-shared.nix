@@ -13,19 +13,12 @@
 
   programs.vim.enable = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-
-  # List services that you want to enable:
-
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # you can check if host is darwin by using pkgs.stdenv.isDarwin
-  # environment.systemPackages = [
-  #   pkgs.btop
-  # ] ++ (pkgs.lib.optionals pkgs.stdenv.isDarwin [ pkgs.xbar ]);
+  # To run non-nix executables:
+  programs.nix-ld.enable = true;
 }
