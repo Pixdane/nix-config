@@ -9,7 +9,6 @@
     inputs.self.nixosModules.host-shared
 
     inputs.self.nixosModules.niri
-    inputs.self.homeModules.niri
   ];
 
   nixpkgs.hostPlatform = "aarch64-linux";
