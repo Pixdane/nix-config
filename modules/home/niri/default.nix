@@ -29,7 +29,11 @@
   };
 
   # 让大部分 gtk 软件选暗色主题
-  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
 
   programs.swaylock.enable = true;
 }
