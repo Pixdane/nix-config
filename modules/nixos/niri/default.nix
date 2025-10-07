@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  niri,
   ...
 }: {
   imports = [
@@ -11,6 +12,7 @@
     ./dolphin.nix
   ];
 
+  nixpkgs.overlays = [niri.overlays.niri];
   programs.niri = {
     enable = true;
     package = pkgs.niri-unstable;
