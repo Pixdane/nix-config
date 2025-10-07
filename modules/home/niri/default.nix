@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  niri,
   ...
 }: {
   home.packages = with pkgs; [
