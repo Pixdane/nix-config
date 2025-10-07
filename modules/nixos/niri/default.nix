@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  niri,
   ...
 }: {
   imports = [
@@ -11,8 +10,6 @@
     # File manager
     ./dolphin.nix
   ];
-
-  nixpkgs.overlays = [niri.overlays.niri];
 
   programs.niri = {
     enable = true;
