@@ -11,10 +11,10 @@
     ./dolphin.nix
   ];
 
-  nixpkgs.overlays = [inputs.niri.overlays.niri];
+  # nixpkgs.overlays = [inputs.niri.overlays.niri];
   programs.niri = {
     enable = true;
-    package = pkgs.niri-unstable;
+    # package = pkgs.niri-unstable;
   };
 
   xdg.portal.config.niri."org.freedesktop.impl.portal.FileChooser" = "gtk";
