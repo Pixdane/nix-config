@@ -1,7 +1,7 @@
 {
   pkgs,
   inputs,
-  niri-flake,
+  niri,
   ...
 }: {
   imports = [
