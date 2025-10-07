@@ -9,10 +9,12 @@
     fish
     git
     starship
-    skhd
-    sketchybar
     direnv
     helix
+
+    # Darwin only
+    skhd
+    sketchybar
   ];
 
   # only available on linux, disabled on macos

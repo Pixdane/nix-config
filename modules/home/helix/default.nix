@@ -2,7 +2,7 @@
   imports = [
     ./settings.nix
     ./themes.nix
-    ./latex-support.nix
+    # ./latex-support.nix
   ];
 
   programs.helix = {
