@@ -28,15 +28,14 @@
     sunrise = "07:00";
   };
 
-  # 让大部分 gtk 软件选暗色主题
-  dconf = {
-    enable = true;
-    settings = {
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-      };
-    };
-  };
+  # # 让大部分 gtk 软件选暗色主题
+  # dconf = {
+  #   settings = {
+  #     "org/gnome/desktop/interface" = {
+  #       color-scheme = "prefer-dark";
+  #     };
+  #   };
+  # };
 
   programs.swaylock.enable = true;
 }
