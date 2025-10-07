@@ -28,6 +28,6 @@
       inherit inputs;
       systems = ["aarch64-linux" "aarch64-darwin" "x86_64-linux" "x86_64-darwin"];
       nixpkgs.config.allowUnfree = true;
-      nixpkgs.overlays = [niri.overlays.niri];
+      nixpkgs.overlays = [inputs.niri.overlays.niri];
     };
 }
