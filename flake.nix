@@ -19,7 +19,7 @@
 
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
 
-    niri-flake.url = "github:sodiboo/niri-flake";
+    niri.url = "github:sodiboo/niri-flake";
   };
 
   # Load the blueprint
