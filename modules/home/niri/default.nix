@@ -1,7 +1,6 @@
 {
   pkgs,
   inputs,
-  niri,
   ...
 }: {
   home.packages = with pkgs; [
@@ -9,7 +8,7 @@
     waypaper
   ];
 
-  nixpkgs.overlays = [niri.overlays.niri];
+  nixpkgs.overlays = [inputs.niri.overlays.niri];
   programs.niri.package = pkgs.niri-unstable;
 
   # 根据不同的设备加载不同的显示器分辨率刷新率缩放
