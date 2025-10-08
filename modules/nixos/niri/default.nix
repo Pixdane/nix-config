@@ -11,11 +11,7 @@
     ./dolphin.nix
   ];
 
-  # nixpkgs.overlays = [inputs.niri.overlays.niri];
-  programs.niri = {
-    enable = true;
-    # package = pkgs.niri-unstable;
-  };
+  programs.niri.enable = true;
 
   xdg.portal.config.niri."org.freedesktop.impl.portal.FileChooser" = "gtk";
 
@@ -25,14 +21,13 @@
     xwayland-satellite
     alacritty
     fuzzel
-    # uwsm
+    uwsm
   ];
 
   # NixOS 桌面配置 - Sway/Hyprland/Niri - 知乎
   # https://zhuanlan.zhihu.com/p/1914081913351681037
 
   # polkit agent
-  systemd.user.services.niri-flake-polkit.enable = false;
   security.soteria.enable = true;
 
   # 磁盘挂载
