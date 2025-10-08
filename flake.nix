@@ -18,8 +18,6 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
-
-    niri.url = "github:sodiboo/niri-flake";
   };
 
   # Load the blueprint
