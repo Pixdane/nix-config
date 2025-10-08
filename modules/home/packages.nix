@@ -17,8 +17,6 @@
       # Nix's Language Server
       nixd
       # Another Nix's Language Server
-      nil
-      # Fix fish for using Nix
       nix-your-shell
       # Thefuck's replacement
       pay-respects
