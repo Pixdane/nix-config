@@ -36,7 +36,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
       # general space settings
       layout = "bsp";
       top_padding = 4;
-      bottom_padding = 50;
+      bottom_padding = 4;
       left_padding = 4;
       right_padding = 4;
       window_gap = 4;
