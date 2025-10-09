@@ -7,6 +7,7 @@
     enable = true;
 
     casks = [
+      "ubersicht"
     ];
   };
 }
