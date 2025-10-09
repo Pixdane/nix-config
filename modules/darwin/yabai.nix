@@ -49,6 +49,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
       yabai -m rule --add app="^Raycast$" manage=off
       yabai -m rule --add app="^归档实用工具$" manage=off
       yabai -m rule --add app="^Microsoft To Do$" manage=off
+      yabai -m signal --add event=space_changed action="nohup open -g raycast://extensions/krzysztoff1/yabai/screens-menu-bar?launchType=background > /dev/null 2>&1 &"
     '';
   };
 }
