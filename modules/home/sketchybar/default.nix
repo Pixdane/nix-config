@@ -7,7 +7,7 @@
 }:
 lib.mkIf pkgs.stdenv.isDarwin {
   programs.sketchybar = {
-    enable = true;
+    enable = false;
     config = {
       source = ./config;
       recursive = true;
