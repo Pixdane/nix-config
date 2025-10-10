@@ -51,8 +51,8 @@ lib.mkIf pkgs.stdenv.isDarwin {
       window < o : yabai -m space --balance
 
       # send window to desktop and follow focus
-      window < shift - 0x21 : yabai -m window --space prev; yabai -m space --focus prev
-      window < shift - 0x1E : yabai -m window --space next; yabai -m space --focus next
+      window < shift - 0x21 : yabai -m window --space prev --focus || yabai -m window --space last --focus
+      window < shift - 0x1E : yabai -m window --space next --focus || yabai -m window --space first --focus
 
       # warp operations - alt + shift + hjkl for warping
       window < alt + shift - h : yabai -m window --warp west
