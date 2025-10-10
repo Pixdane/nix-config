@@ -7,6 +7,7 @@
     activate-fish
     sudo-local
     homebrew
+    skhd-fix
   ];
 
   # List packages installed in system profile. To search by name, run:
