@@ -50,7 +50,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
       # balance size of windows
       window < o : yabai -m space --balance
 
-      # # send window to desktop and follow focus
+      # send window to desktop and follow focus
       window < shift - 0x21 : yabai -m window --space prev; yabai -m space --focus prev
       window < shift - 0x1E : yabai -m window --space next; yabai -m space --focus next
 
