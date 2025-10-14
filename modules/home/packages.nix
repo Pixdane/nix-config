@@ -24,6 +24,7 @@
       typst
       ffmpeg
       mpv
+      cachix
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [
       zip
