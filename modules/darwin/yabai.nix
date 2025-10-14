@@ -36,7 +36,7 @@ lib.mkIf pkgs.stdenv.isDarwin {
       # general space settings
       layout = "bsp";
       top_padding = 4;
-      bottom_padding = 50;
+      bottom_padding = 44;
       left_padding = 4;
       right_padding = 4;
       window_gap = 4;
@@ -49,6 +49,9 @@ lib.mkIf pkgs.stdenv.isDarwin {
       yabai -m rule --add app="^Raycast$" manage=off
       yabai -m rule --add app="^归档实用工具$" manage=off
       yabai -m rule --add app="^Microsoft To Do$" manage=off
+      yabai -m rule --add app="^Steam$" manage=off
+      # Raycast support
+      # yabai -m signal --add event=space_changed action="nohup open -g raycast://extensions/krzysztoff1/yabai/screens-menu-bar?launchType=background > /dev/null 2>&1 &"
     '';
   };
 }
