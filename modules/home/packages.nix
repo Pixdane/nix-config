@@ -27,6 +27,7 @@
       fd
       ripgrep
       ncdu
+      zellij
       # Thefuck's replacement
       pay-respects
       nushell
