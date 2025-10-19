@@ -18,6 +18,8 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
+
+    helix-flake.url = "github:helix-editor/helix";
   };
 
   # Load the blueprint

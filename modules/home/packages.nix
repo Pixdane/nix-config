@@ -6,7 +6,7 @@
 }: {
   home.packages = with pkgs;
     [
-      helix
+      inputs.helix-flake.packages.${pkgs.system}.default
       xz
       zstd
       ntfs3g
