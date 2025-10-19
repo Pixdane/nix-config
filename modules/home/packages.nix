@@ -45,6 +45,7 @@
     ])
     ++ lib.optionals pkgs.stdenv.isDarwin (with pkgs; [
       skhd
+      dos2unix
     ]);
   # ++ (
   #   # you can access the host configuration using osConfig.
