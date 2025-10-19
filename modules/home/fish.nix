@@ -20,16 +20,8 @@
   };
 
   programs = {
-    starship.enableFishIntegration = true;
-
-    nix-your-shell.enableFishIntegration = true;
-
     opam.enableFishIntegration = true;
 
-    pay-respects.enableFishIntegration = true;
-
     zellij.enableFishIntegration = true;
-
-    fzf.enableFishIntegration = true;
   };
 }

@@ -7,10 +7,13 @@
   imports = with inputs.self.homeModules; [
     packages
     fish
+    nix-your-shell
+    pay-respects
     git
     starship
     direnv
     helix
+    fzf
 
     # Darwin only
     skhd
