@@ -37,7 +37,6 @@
       fzf
       lazygit
       ouch
-      atuin
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [
       zip
