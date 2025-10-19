@@ -21,6 +21,7 @@
       ffmpeg
       mpv
       cachix
+      nix-search-cli
 
       # For terminal
       jq
