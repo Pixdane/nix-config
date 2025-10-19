@@ -5,7 +5,8 @@
     userName = "Pixdane";
     extraConfig = {
       http.postbuffer = 524288000;
-      core.autocrlf = true;
+      core.autocrlf = false;
+      core.eol = "lf";
     };
   };
 }
