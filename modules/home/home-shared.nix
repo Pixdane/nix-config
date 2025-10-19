@@ -14,6 +14,7 @@
     direnv
     helix
     fzf
+    zoxide
 
     # Darwin only
     skhd
