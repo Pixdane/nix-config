@@ -25,6 +25,7 @@
       ffmpeg
       mpv
       cachix
+      nushell
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [
       zip
