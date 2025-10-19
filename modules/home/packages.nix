@@ -10,22 +10,32 @@
       xz
       zstd
       ntfs3g
-      ripgrep
-      ncdu
       # Nix Formatter
       alejandra
       # Nix's Language Server
       nixd
       # Another Nix's Language Server
       nix-your-shell
-      # Thefuck's replacement
-      pay-respects
       zathura
       typst
       ffmpeg
       mpv
       cachix
+
+      # For terminal
+      jq
+      fd
+      ripgrep
+      ncdu
+      # Thefuck's replacement
+      pay-respects
       nushell
+      yazi
+      zoxide
+      fzf
+      lazygit
+      ouch
+      atuin
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [
       zip
