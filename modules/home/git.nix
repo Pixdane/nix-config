@@ -1,9 +1,9 @@
 {
   programs.git = {
     enable = true;
-    userEmail = "yuanjin233@gmail.com";
-    userName = "Pixdane";
-    extraConfig = {
+    settings = {
+      user.email = "yuanjin233@gmail.com";
+      user.name = "Pixdane";
       http.postbuffer = 524288000;
       core.autocrlf = false;
       core.eol = "lf";
