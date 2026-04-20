@@ -37,6 +37,7 @@
       fzf
       lazygit
       ouch
+      dotnet-sdk_10
     ]
     ++ lib.optionals pkgs.stdenv.isLinux (with pkgs; [
       zip
