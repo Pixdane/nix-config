@@ -3,6 +3,6 @@
     enable = true;
     enableFishIntegration = true;
     enableZshIntegration = true;
-    enableNushellIntegration = true;
+    # enableNushellIntegration = true;
   };
 }

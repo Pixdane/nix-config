@@ -31,7 +31,7 @@
       zellij
       # Thefuck's replacement
       pay-respects
-      nushell
+      # nushell
       yazi
       zoxide
       fzf
