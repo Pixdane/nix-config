@@ -7,7 +7,6 @@
     activate-fish
     sudo-local
     homebrew
-    skhd-fix
     # jankyborders
   ];
 
