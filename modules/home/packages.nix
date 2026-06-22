@@ -16,7 +16,6 @@
       nixd
       # Another Nix's Language Server
       nix-your-shell
-      zathura
       typst
       ffmpeg
       mpv
