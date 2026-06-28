@@ -117,6 +117,23 @@
         "type": "github"
       }
     },
+    "nix-fish": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1688477565,
+        "narHash": "sha256-GMV0GyORJ8Tt2S9wTCo2lkkLtetYv0rc19aA5KJbo48=",
+        "owner": "kidonng",
+        "repo": "nix.fish",
+        "rev": "ad57d970841ae4a24521b5b1a68121cf385ba71e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kidonng",
+        "repo": "nix.fish",
+        "rev": "ad57d970841ae4a24521b5b1a68121cf385ba71e",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1775036866,
@@ -211,6 +228,7 @@
         "helix-flake": "helix-flake",
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
+        "nix-fish": "nix-fish",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-python": "nixpkgs-python",
         "nur": "nur"

@@ -1,10 +1,19 @@
-{pkgs, ...}: {
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    # Already enabled by other config
-    # enableFishIntegration = true;
-    nix-direnv.enable = true;
+{
+  config,
+  lib,
+  ...
+}:
+let
+  enabled = config.pixdane.features.direnv.effectiveEnabled;
+in
+{
+  config = lib.mkIf enabled {
+    programs.direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
   };
 }

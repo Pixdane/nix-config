@@ -4,14 +4,13 @@
   ...
 }:
 let
-  enabled = config.pixdane.features.nixYourShell.effectiveEnabled;
+  enabled = config.pixdane.features.zellij.effectiveEnabled;
 in
 {
   config = lib.mkIf enabled {
-    programs.nix-your-shell = {
+    programs.zellij = {
       enable = true;
       enableFishIntegration = true;
-      enableZshIntegration = true;
     };
   };
 }

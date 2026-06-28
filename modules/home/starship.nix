@@ -1,10 +1,23 @@
-{pkgs, ...}: {
-  programs.starship = {
-    enable = true;
+{
+  config,
+  lib,
+  ...
+}:
+let
+  enabled = config.pixdane.features.starship.effectiveEnabled;
+in
+{
+  config = lib.mkIf enabled {
+    programs.starship = {
+      enable = true;
 
-    enableFishIntegration = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableZshIntegration = true;
 
-    settings =
-      builtins.fromTOML (builtins.readFile "${pkgs.starship.src}/docs/public/presets/toml/pure-preset.toml");
+      presets = [
+        "pure-preset"
+      ];
+    };
   };
 }

@@ -2,16 +2,26 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
-    inputs.self.modules.common.host-shared
+    inputs.self.modules.system.base
     inputs.self.darwinModules.host-shared
     inputs.self.darwinModules.yabai
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  users.users.pixdane.home = /Users/pixdane;
+  pixdane.system = {
+    nix.trustedUsers = [ "pixdane" ];
+    fishShell.enable = true;
+    helix.enable = true;
+  };
+
+  users.users.pixdane = {
+    home = "/Users/pixdane";
+    shell = pkgs.fish;
+  };
 
   system.primaryUser = "pixdane";
 

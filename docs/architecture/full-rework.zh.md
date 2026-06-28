@@ -740,23 +740,19 @@ modules/home/helix/latex-support.nix
 modules/home/helix/themes/catppuccin_mocha_modified.toml
 ```
 
-`languages.nix` 第一版配置 Nix formatter：
+`languages.nix` 第一版配置 Nix formatter。仓库显式使用 RFC style formatter：
 
 ```nix
 programs.helix.languages.language = [
   {
     name = "nix";
     auto-format = true;
-    formatter.command = "${pkgs.nixfmt}/bin/nixfmt";
+    formatter.command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
   }
 ];
 ```
 
-repo 级 flake output 也使用 `nixfmt`：
-
-```nix
-formatter.${system} = pkgs.nixfmt;
-```
+repo 级 flake output 参考 Blueprint 的 `formatter.nix` 写法：使用 `writeShellApplication` 包装 formatter；无参数时默认定位 git 顶层；通过 `git ls-files` 遍历 repo 内的 Nix 文件；并附带 format check。formatter 包显式指定为 `nixfmt-rfc-style`。
 
 VS Code 侧使用 Nix IDE 做 Nix formatter，设置方向是：
 
@@ -809,7 +805,7 @@ ncdu
 yazi
 lazygit
 ouch
-nixfmt
+nixfmt-rfc-style
 nixd
 cachix
 ```
