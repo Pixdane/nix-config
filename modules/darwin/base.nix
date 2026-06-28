@@ -5,5 +5,7 @@
     homebrew
     desktop
     skhd
+    ubersicht
+    simple-bar
   ];
 }

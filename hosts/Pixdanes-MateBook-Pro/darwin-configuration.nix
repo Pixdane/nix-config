@@ -38,12 +38,6 @@
     };
   };
 
-  homebrew = {
-    casks = [
-      "ubersicht"
-    ];
-  };
-
   users.users.pixdane = {
     home = "/Users/pixdane";
     shell = pkgs.fish;
