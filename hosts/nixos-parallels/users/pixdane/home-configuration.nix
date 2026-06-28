@@ -4,7 +4,7 @@
   ...
 }:
 {
-  imports = [ inputs.self.homeModules.home-shared ];
+  imports = [ inputs.self.homeModules.base ];
 
   pixdane.features.enabled = [
     "fish"

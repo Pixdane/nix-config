@@ -41,4 +41,10 @@
       };
     };
   };
+
+  imports = [
+    ./skhd.nix
+    ./yabai.nix
+    ./simple-bar.nix
+  ];
 }

@@ -9,7 +9,6 @@
     inputs.helix-flake.packages.${pkgs.stdenv.hostPlatform.system}.default
     vim
     wget
-    fish
   ];
 
   boot.loader.systemd-boot.configurationLimit = 10;

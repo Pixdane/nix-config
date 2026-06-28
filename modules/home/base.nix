@@ -1,17 +1,11 @@
-{ inputs, ... }: {
-  imports = with inputs.self.homeModules; [
-    features
-    fish
-    git
-    helix
-    starship
-    direnv
-    zoxide
-    zellij
-    nix-your-shell
-    pay-respects
-    tools
-    darwin-desktop
+{ ... }:
+{
+  imports = [
+    ./features.nix
+    ./cli
+    ./helix
+    ./ubersicht.nix
+    ./window-manager
   ];
 
   home.stateVersion = "25.05";

@@ -1,12 +1,8 @@
-{ inputs, ... }:
 {
-  imports = with inputs.self.darwinModules; [
-    touch-id-sudo
-    homebrew
-    desktop
-    skhd
-    yabai
-    ubersicht
-    simple-bar
+  imports = [
+    ./touch-id-sudo.nix
+    ./homebrew.nix
+    ./ubersicht.nix
+    ./window-manager
   ];
 }

@@ -41,9 +41,9 @@ templates/
 ```text
 modules/system/base.nix
 modules/home/base.nix
-modules/home/tools.nix
+modules/home/cli/tools.nix
 modules/darwin/base.nix
-modules/darwin/desktop.nix
+modules/darwin/window-manager/desktop.nix
 modules/nixos/base.nix
 modules/nixos/vm.nix
 ```
@@ -333,18 +333,18 @@ system.stateVersion = "25.05";
 modules/darwin/base.nix
 modules/darwin/touch-id-sudo.nix
 modules/darwin/homebrew.nix
-modules/darwin/desktop.nix
-modules/darwin/skhd.nix
-modules/darwin/yabai.nix
 modules/darwin/ubersicht.nix
-modules/darwin/simple-bar.nix
+modules/darwin/window-manager/default.nix
+modules/darwin/window-manager/skhd.nix
+modules/darwin/window-manager/yabai.nix
+modules/darwin/window-manager/simple-bar.nix
 ```
 
 ### Darwin base
 
 `system.primaryUser`、`users.users`、`nixpkgs.hostPlatform`、`networking.hostName` 等 host 事实直接写在 host 中，不包装成 `pixdane.*`。
 
-Darwin base 导入 Touch ID sudo、Homebrew、desktop option、skhd、yabai、Übersicht 和 simple-bar 模块。导入只表示这些能力进入 module graph，是否真正启用仍由具体 option 决定。
+Darwin base 导入 Touch ID sudo、Homebrew、Übersicht 和 window-manager 模块。window-manager default 内部定义 `pixdane.darwin.windowManager.*` options，并导入 skhd、yabai 和 simple-bar。导入只表示这些能力进入 module graph，是否真正启用仍由具体 option 决定。
 
 ### Touch ID sudo
 
@@ -409,7 +409,7 @@ pixdane.darwin.windowManager = {
 
 ### skhd
 
-`modules/darwin/skhd.nix` 提供独立开关：
+`modules/darwin/window-manager/skhd.nix` 提供独立开关：
 
 ```nix
 pixdane.darwin.skhd.enable = false;
@@ -518,7 +518,7 @@ homebrew.casks = [ "ubersicht" ];
 
 ### simple-bar
 
-`modules/darwin/simple-bar.nix` import `./ubersicht.nix`。
+`modules/darwin/window-manager/simple-bar.nix` 属于 window-manager/bar 配置，但只负责在选择 simple-bar 时默认打开 `pixdane.darwin.ubersicht.enable`。Übersicht 自身的安装模块放在 `modules/darwin/ubersicht.nix`。
 
 当：
 
@@ -540,33 +540,32 @@ Darwin 侧只负责安装 Übersicht。simple-bar widget repo 和 `.simplebarrc`
 
 ```text
 modules/home/base.nix
-modules/home/darwin-desktop.nix
 modules/home/ubersicht.nix
-modules/home/simple-bar.nix
-modules/home/fish.nix
-modules/home/git.nix
-modules/home/helix.nix
-modules/home/starship.nix
-modules/home/direnv.nix
-modules/home/zoxide.nix
-modules/home/nix-your-shell.nix
-modules/home/pay-respects.nix
-modules/home/zellij.nix
-modules/home/tools.nix
+modules/home/window-manager/default.nix
+modules/home/window-manager/simple-bar/default.nix
+modules/home/cli/fish.nix
+modules/home/cli/git.nix
+modules/home/helix/default.nix
+modules/home/cli/starship.nix
+modules/home/cli/direnv.nix
+modules/home/cli/zoxide.nix
+modules/home/cli/nix-your-shell.nix
+modules/home/cli/pay-respects.nix
+modules/home/cli/zellij.nix
+modules/home/cli/tools.nix
 ```
 
-`modules/home/base.nix` import 所有公共 home feature 模块和 `home/darwin-desktop.nix`，但 feature 是否启用由 `pixdane.features.enabled` / `disabled` 决定。
+`modules/home/base.nix` import `features.nix`、`cli/default.nix`、`helix/default.nix`、`ubersicht.nix` 和 `window-manager/default.nix`，但 feature 是否启用由 `pixdane.features.enabled` / `disabled` 决定。
 
-### Darwin-only home desktop
+### Übersicht home integration
 
-`modules/home/darwin-desktop.nix` 负责按平台导入 Darwin-only home 模块：
+`modules/home/ubersicht.nix` 负责管理 Übersicht 的 home symlink：
 
 ```nix
-imports = lib.optionals pkgs.stdenv.isDarwin [
-  ./ubersicht.nix
-  ./simple-bar.nix
-];
+~/.config/ubersicht -> ~/Library/Application Support/Übersicht
 ```
+
+simple-bar 是 bar/widget 配置，保留在 `modules/home/window-manager/simple-bar/default.nix`，并由 `modules/home/window-manager/default.nix` 导入。
 
 因此 `home/ubersicht.nix` 和 `home/simple-bar.nix` 自己不再检查系统。
 
@@ -621,7 +620,7 @@ inputs.simple-bar = {
 - HEAD：`7673cbb Update roadmap in README`
 - working tree 有本地改动，主要涉及脚本 mode 和 `lib/scripts/init-yabai.sh`
 - 当前 widget repo 已备份到本地 `.backups/simple-bar-current-7673cbbc`，并由 home-manager 接管。
-- Nix 管理方式是固定 simple-bar flake input 到 `7673cbbc56973748897bcae15afc135865694351`，再应用 `modules/home/simple-bar/patches/local-current.patch`。
+- Nix 管理方式是固定 simple-bar flake input 到 `7673cbbc56973748897bcae15afc135865694351`，再应用 `modules/home/window-manager/simple-bar/patches/local-current.patch`。
 - 已验证 patched store output 与备份目录一致，比较时排除 `.git` 和 `.DS_Store`。
 
 `.simplebarrc` 当前在：
@@ -905,7 +904,7 @@ NixOS 短期不是主力，但结构已经进入新系统。
 - `boot.loader.systemd-boot.configurationLimit = 10`
 - `programs.vim.enable = true`
 - `programs.nix-ld.enable = true`
-- 系统 profile 里的 `git`、Helix HEAD、`vim`、`wget`、`fish`
+- 系统 profile 里的 `git`、Helix HEAD、`vim`、`wget`
 
 仍然保留在 `hosts/nixos-parallels/configuration.nix` 的 host local 事实：
 
@@ -922,14 +921,14 @@ NixOS 短期不是主力，但结构已经进入新系统。
 ## 原 repo 中需要特别处理的旧状态
 
 - `skhd` 的 yabai 快捷键已迁到 Darwin `yabai.nix`，并按 `windowManager.bar` 选择 mode header。
-- `modules/home/sketchybar` 保留为弃用的 legacy snapshot，不接入 `home/base.nix`，也不进入第一版 feature/bar 选择。
-- 如果手动 import `homeModules.sketchybar`，模块会发出弃用 warning；当前正式 bar 路径是 `pixdane.darwin.windowManager.bar = "simple-bar"`。
+- `modules/home/window-manager/sketchybar` 保留为弃用的 legacy snapshot，不接入 `home/base.nix`，也不进入第一版 feature/bar 选择。
+- 如果手动 import `modules/home/window-manager/sketchybar`，模块会发出弃用 warning；当前正式 bar 路径是 `pixdane.darwin.windowManager.bar = "simple-bar"`。
 - `sketchybar` 配置目录完整，但 `programs.sketchybar.enable = false`。
 - `sketchybarrc` 当前只加载 `spaces`、`yabai`、`front_app`。
 - apple、battery、cpu、brew、github、spotify、calendar、volume 等 sketchybar item 更像库存功能，不应第一批全部恢复。
 - sketchybar helper 会编译并启动 CPU helper，但当前 CPU item 未加载。
 - repo 中提交了 Mach-O helper 二进制，重构时需要决定是否保留。
-- `modules/home/sketchybar/config/items/volume.sh` 里 bracket 名称疑似旧 bug：添加的是 `status_bracket`，设置时用了 `status`。
+- `modules/home/window-manager/sketchybar/config/items/volume.sh` 里 bracket 名称疑似旧 bug：添加的是 `status_bracket`，设置时用了 `status`。
 - `jankyborders` 不进入新架构第一版，旧模块已删除。
 
 ## 后续顺序

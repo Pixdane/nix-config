@@ -20,7 +20,7 @@ let
     src = inputs.simple-bar;
 
     patches = [
-      ./simple-bar/patches/local-current.patch
+      ./patches/local-current.patch
     ];
 
     dontFixup = true;
@@ -50,6 +50,6 @@ in
       force = true;
     };
 
-    home.file.".simplebarrc".source = ./simple-bar/simplebarrc.json;
+    home.file.".simplebarrc".source = ./simplebarrc.json;
   };
 }
