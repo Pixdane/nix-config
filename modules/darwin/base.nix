@@ -5,6 +5,7 @@
     homebrew
     desktop
     skhd
+    yabai
     ubersicht
     simple-bar
   ];

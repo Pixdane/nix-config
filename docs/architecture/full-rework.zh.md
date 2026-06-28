@@ -344,6 +344,8 @@ modules/darwin/simple-bar.nix
 
 `system.primaryUser`、`users.users`、`nixpkgs.hostPlatform`、`networking.hostName` 等 host 事实直接写在 host 中，不包装成 `pixdane.*`。
 
+Darwin base 导入 Touch ID sudo、Homebrew、desktop option、skhd、yabai、Übersicht 和 simple-bar 模块。导入只表示这些能力进入 module graph，是否真正启用仍由具体 option 决定。
+
 ### Touch ID sudo
 
 Touch ID sudo 直接在 Darwin base 中打开，不再额外提供开关：
@@ -422,8 +424,6 @@ services.skhd.enable = true;
 skhd 可以脱离 yabai 单独启动。
 
 ### yabai
-
-`modules/darwin/yabai.nix` import `./skhd.nix`。
 
 当：
 
