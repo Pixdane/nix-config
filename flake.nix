@@ -25,6 +25,11 @@
       url = "github:kidonng/nix.fish/ad57d970841ae4a24521b5b1a68121cf385ba71e";
       flake = false;
     };
+
+    simple-bar = {
+      url = "github:Jean-Tinland/simple-bar/7673cbbc56973748897bcae15afc135865694351";
+      flake = false;
+    };
   };
 
   # Load the blueprint

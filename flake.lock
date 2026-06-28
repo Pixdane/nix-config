@@ -231,7 +231,8 @@
         "nix-fish": "nix-fish",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-python": "nixpkgs-python",
-        "nur": "nur"
+        "nur": "nur",
+        "simple-bar": "simple-bar"
       }
     },
     "rust-overlay": {
@@ -252,6 +253,23 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "simple-bar": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1755888254,
+        "narHash": "sha256-8MpANF0m/c8Z2btgArn1pavxoP2qdkKX4dD9l3nDFa8=",
+        "owner": "Jean-Tinland",
+        "repo": "simple-bar",
+        "rev": "7673cbbc56973748897bcae15afc135865694351",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Jean-Tinland",
+        "repo": "simple-bar",
+        "rev": "7673cbbc56973748897bcae15afc135865694351",
         "type": "github"
       }
     },
