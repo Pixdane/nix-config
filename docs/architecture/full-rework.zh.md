@@ -618,7 +618,9 @@ inputs.simple-bar = {
 - branch：`master`
 - HEAD：`7673cbb Update roadmap in README`
 - working tree 有本地改动，主要涉及脚本 mode 和 `lib/scripts/init-yabai.sh`
-- 因为当前 widget 目录是真实 git repo 且有本地改动，home-manager 暂不直接接管 `widgets/simple-bar` 目录；先只接管 Übersicht symlink，后续清理或迁移本地改动后再启用 Nix 管理 repo。
+- 当前 widget repo 已备份到本地 `.backups/simple-bar-current-7673cbbc`，并由 home-manager 接管。
+- Nix 管理方式是固定 simple-bar flake input 到 `7673cbbc56973748897bcae15afc135865694351`，再应用 `modules/home/simple-bar/patches/local-current.patch`。
+- 已验证 patched store output 与备份目录一致，比较时排除 `.git` 和 `.DS_Store`。
 
 `.simplebarrc` 当前在：
 
@@ -921,7 +923,7 @@ modules/nixos/vm.nix
 - sketchybar helper 会编译并启动 CPU helper，但当前 CPU item 未加载。
 - repo 中提交了 Mach-O helper 二进制，重构时需要决定是否保留。
 - `modules/home/sketchybar/config/items/volume.sh` 里 bracket 名称疑似旧 bug：添加的是 `status_bracket`，设置时用了 `status`。
-- `jankyborders` 不进入新架构第一版。
+- `jankyborders` 不进入新架构第一版，旧模块已删除。
 
 ## 后续顺序
 
