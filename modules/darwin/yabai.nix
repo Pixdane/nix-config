@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.pixdane.darwin.windowManager;
 
@@ -126,6 +131,10 @@ in
 {
   config = lib.mkIf (cfg.backend == "yabai") {
     pixdane.darwin.skhd.enable = lib.mkDefault true;
+
+    environment.systemPackages = [
+      pkgs.yabai
+    ];
 
     services.yabai = {
       enable = true;

@@ -7,7 +7,6 @@
   imports = [
     inputs.self.modules.system.base
     inputs.self.darwinModules.base
-    inputs.self.darwinModules.host-shared
     inputs.self.darwinModules.yabai
   ];
 

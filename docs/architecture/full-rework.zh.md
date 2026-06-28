@@ -7,6 +7,8 @@
 - 已创建重构分支：`codex/full-rework`。
 - 已完成第一批共享 `system` / `home` 模块重构。
 - 已完成 Darwin base、Touch ID sudo、Homebrew base 接线。
+- 已完成 Darwin desktop、yabai/skhd、Übersicht/simple-bar 接线。
+- 已完成第一批 NixOS base 模块收敛。
 - 当前重心是 macOS / nix-darwin。
 - NixOS 和 standalone home-manager 也要进入新结构，但短期不是主力使用目标。
 
@@ -888,31 +890,32 @@ home.packages = with pkgs; [
 - home-manager 放用户 CLI 工具和用户态配置。
 - Helix 例外：既需要系统编辑器，也需要 home-manager 用户配置。
 
-## NixOS 层待继续讨论
+## NixOS 层第一版
 
-NixOS 短期不是主力，但结构要进入新系统。
+NixOS 短期不是主力，但结构已经进入新系统。
 
-旧配置中 NixOS VM 包含：
+第一版新增：
 
-- systemd-boot
+- `modules/nixos/base.nix`
+
+它收敛了旧 `modules/nixos/host-shared.nix` 和 `modules/nixos/packages.nix` 的行为：
+
 - `boot.loader.systemd-boot.configurationLimit = 10`
+- `programs.vim.enable = true`
+- `programs.nix-ld.enable = true`
+- 系统 profile 里的 `git`、Helix HEAD、`vim`、`wget`、`fish`
+
+仍然保留在 `hosts/nixos-parallels/configuration.nix` 的 host local 事实：
+
+- systemd-boot 是否启用
 - NetworkManager
 - Parallels VM proxy
 - timezone 和 locale
 - `users.users.pixdane`
 - getty autologin
-- `programs.vim.enable = true`
-- `programs.nix-ld.enable = true`
 - Parallels hardware config
 
-这些需要拆分成：
-
-```text
-modules/nixos/base.nix
-modules/nixos/vm.nix
-```
-
-哪些属于 shared NixOS base，哪些属于 `nixos-parallels` host local，后续继续定。
+之后如果增加新的 NixOS 机器，再把明显可复用的 VM 或桌面配置拆成 `modules/nixos/vm.nix` 等更小模块。
 
 ## 原 repo 中需要特别处理的旧状态
 

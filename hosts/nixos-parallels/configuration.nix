@@ -7,7 +7,7 @@
   imports = [
     ./hardware-configuration.nix
     inputs.self.modules.system.base
-    inputs.self.nixosModules.host-shared
+    inputs.self.nixosModules.base
   ];
 
   nixpkgs.hostPlatform = "aarch64-linux";
