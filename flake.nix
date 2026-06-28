@@ -22,7 +22,7 @@
     helix-flake.url = "github:helix-editor/helix";
 
     nix-fish = {
-      url = "github:kidonng/nix.fish/ad57d970841ae4a24521b5b1a68121cf385ba71e";
+      url = "github:kidonng/nix.fish";
       flake = false;
     };
 
