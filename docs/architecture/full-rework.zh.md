@@ -913,7 +913,7 @@ modules/nixos/vm.nix
 
 ## 原 repo 中需要特别处理的旧状态
 
-- `skhd` 依赖 Übersicht/simple-bar 的 mode script。
+- `skhd` 的 yabai 快捷键已迁到 Darwin `yabai.nix`，并按 `windowManager.bar` 选择 mode header。
 - `sketchybar` 配置目录完整，但 `programs.sketchybar.enable = false`。
 - `sketchybarrc` 当前只加载 `spaces`、`yabai`、`front_app`。
 - apple、battery、cpu、brew、github、spotify、calendar、volume 等 sketchybar item 更像库存功能，不应第一批全部恢复。
