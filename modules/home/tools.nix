@@ -21,7 +21,7 @@ in
         yazi
         lazygit
         ouch
-        nixfmt-rfc-style
+        nixfmt
         nixd
         cachix
       ]

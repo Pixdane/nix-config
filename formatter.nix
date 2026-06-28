@@ -10,7 +10,7 @@ let
       pkgs.deadnix
       pkgs.git
       pkgs.gnugrep
-      pkgs.nixfmt-rfc-style
+      pkgs.nixfmt
     ];
     text = ''
       set -euo pipefail
