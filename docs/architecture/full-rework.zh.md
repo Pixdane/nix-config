@@ -5,7 +5,8 @@
 当前状态：
 
 - 已创建重构分支：`codex/full-rework`。
-- 目前只整理设计文档，尚未重写模块实现。
+- 已完成第一批共享 `system` / `home` 模块重构。
+- 已完成 Darwin base、Touch ID sudo、Homebrew base 接线。
 - 当前重心是 macOS / nix-darwin。
 - NixOS 和 standalone home-manager 也要进入新结构，但短期不是主力使用目标。
 
