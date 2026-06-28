@@ -920,6 +920,8 @@ NixOS 短期不是主力，但结构已经进入新系统。
 ## 原 repo 中需要特别处理的旧状态
 
 - `skhd` 的 yabai 快捷键已迁到 Darwin `yabai.nix`，并按 `windowManager.bar` 选择 mode header。
+- `modules/home/sketchybar` 保留为弃用的 legacy snapshot，不接入 `home/base.nix`，也不进入第一版 feature/bar 选择。
+- 如果手动 import `homeModules.sketchybar`，模块会发出弃用 warning；当前正式 bar 路径是 `pixdane.darwin.windowManager.bar = "simple-bar"`。
 - `sketchybar` 配置目录完整，但 `programs.sketchybar.enable = false`。
 - `sketchybarrc` 当前只加载 `spaces`、`yabai`、`front_app`。
 - apple、battery、cpu、brew、github、spotify、calendar、volume 等 sketchybar item 更像库存功能，不应第一批全部恢复。
