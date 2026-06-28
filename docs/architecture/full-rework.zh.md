@@ -618,6 +618,7 @@ inputs.simple-bar = {
 - branch：`master`
 - HEAD：`7673cbb Update roadmap in README`
 - working tree 有本地改动，主要涉及脚本 mode 和 `lib/scripts/init-yabai.sh`
+- 因为当前 widget 目录是真实 git repo 且有本地改动，home-manager 暂不直接接管 `widgets/simple-bar` 目录；先只接管 Übersicht symlink，后续清理或迁移本地改动后再启用 Nix 管理 repo。
 
 `.simplebarrc` 当前在：
 
