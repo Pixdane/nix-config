@@ -23,14 +23,24 @@
     backend = "yabai";
     bar = "simple-bar";
 
-    yabai.unmanagedApps = [
-      "系统设置"
-      "QQ"
-      "微信"
-      "Raycast"
-      "归档实用工具"
-      "Microsoft To Do"
-      "Steam"
+    yabai = {
+      scriptingAddition.enable = true;
+
+      unmanagedApps = [
+        "系统设置"
+        "QQ"
+        "微信"
+        "Raycast"
+        "归档实用工具"
+        "Microsoft To Do"
+        "Steam"
+      ];
+    };
+  };
+
+  homebrew = {
+    casks = [
+      "ubersicht"
     ];
   };
 
