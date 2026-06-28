@@ -19,7 +19,7 @@ in
   config = lib.mkIf enabled {
     programs.helix = {
       enable = true;
-      package = inputs.helix-flake.packages.${pkgs.system}.default;
+      package = inputs.helix-flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
       defaultEditor = true;
     };
   };

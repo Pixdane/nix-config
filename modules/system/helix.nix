@@ -13,7 +13,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
-      inputs.helix-flake.packages.${pkgs.system}.default
+      inputs.helix-flake.packages.${pkgs.stdenv.hostPlatform.system}.default
     ];
 
     environment.variables = {

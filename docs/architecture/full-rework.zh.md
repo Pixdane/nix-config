@@ -270,7 +270,7 @@ pixdane.system.helix.enable = true;
 
 ```nix
 environment.systemPackages = [
-  inputs.helix-flake.packages.${pkgs.system}.default
+  inputs.helix-flake.packages.${pkgs.stdenv.hostPlatform.system}.default
 ];
 
 environment.variables = {
@@ -728,7 +728,7 @@ home 侧使用 upstream HEAD input：
 ```nix
 programs.helix = {
   enable = true;
-  package = inputs.helix-flake.packages.${pkgs.system}.default;
+  package = inputs.helix-flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
   defaultEditor = true;
 };
 ```
