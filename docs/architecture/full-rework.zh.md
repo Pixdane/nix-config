@@ -733,7 +733,9 @@ programs.helix = {
 };
 ```
 
-保留旧配置中的 settings/theme。LaTeX support 旧模块存在，但暂不默认启用，之后单独讨论。
+保留旧配置中的 settings/theme。LaTeX support 旧模块存在，但暂不默认启用，也不进入第一版公共 Helix feature。
+
+`modules/home/helix/latex-support.nix` 保留为未迁移的本地 LaTeX 配置候选。如果将来手动 import，它会发出 warning，因为它假设 `tex-fmt`、`texlab`、`latexmk` 和 macOS Skim forward-search 路径都已经存在。后续如果要恢复 LaTeX workflow，应先决定这些包由 Nix 管理还是由 MacTeX / 外部安装提供。
 
 Helix 模块保留目录结构：
 
