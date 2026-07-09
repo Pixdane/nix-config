@@ -15,5 +15,10 @@ in
         core.eol = "lf";
       };
     };
+
+    programs.gh = {
+      enable = true;
+      gitCredentialHelper.enable = true;
+    };
   };
 }
