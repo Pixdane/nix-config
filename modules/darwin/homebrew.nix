@@ -1,13 +1,9 @@
 {
-  pkgs,
-  inputs,
-  ...
-}: {
   homebrew = {
     enable = true;
 
-    casks = [
-      "ubersicht"
-    ];
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+    enableZshIntegration = true;
   };
 }

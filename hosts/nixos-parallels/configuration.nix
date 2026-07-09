@@ -2,14 +2,21 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
-    inputs.self.modules.common.host-shared
-    inputs.self.nixosModules.host-shared
+    inputs.self.modules.system.base
+    inputs.self.nixosModules.base
   ];
 
   nixpkgs.hostPlatform = "aarch64-linux";
+
+  pixdane.system = {
+    nix.trustedUsers = [ "pixdane" ];
+    fishShell.enable = true;
+    helix.enable = true;
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -53,8 +60,12 @@
   users.users.pixdane = {
     isNormalUser = true;
     description = "pixdane";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    shell = pkgs.fish;
+    packages = with pkgs; [ ];
   };
 
   # Enable automatic login for the user.
@@ -62,7 +73,7 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = with pkgs; [ ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

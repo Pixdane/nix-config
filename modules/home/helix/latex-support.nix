@@ -1,4 +1,9 @@
-{pkgs, ...}: {
+{ ... }:
+{
+  warnings = [
+    "home/helix/latex-support.nix is an unmigrated local LaTeX setup candidate. It is intentionally not imported by the Helix feature because it assumes tex-fmt, texlab, latexmk, and the macOS Skim forward-search path."
+  ];
+
   programs.helix.languages = {
     language = [
       {

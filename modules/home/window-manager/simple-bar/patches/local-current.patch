@@ -1,0 +1,69 @@
+diff --git a/lib/scripts/browser-audio.applescript b/lib/scripts/browser-audio.applescript
+old mode 100644
+new mode 100755
+index e6b64cf..e509ab6
+--- a/lib/scripts/browser-audio.applescript
++++ b/lib/scripts/browser-audio.applescript
+@@ -88,4 +88,4 @@ if application "Safari" is running then
+   end tell
+ end if
+ 
+-return "{ \"browser\": \"" & browser & "\", \"title\": \"" & replace_chars(title_string, "\"", "Ò") & "\" }"
++return "{ \"browser\": \"" & browser & "\", \"title\": \"" & replace_chars(title_string, "\"", "ï¿½") & "\" }"
+diff --git a/lib/scripts/firefox-audio.applescript b/lib/scripts/firefox-audio.applescript
+old mode 100644
+new mode 100755
+index 23c408a..f3253af
+--- a/lib/scripts/firefox-audio.applescript
++++ b/lib/scripts/firefox-audio.applescript
+@@ -21,4 +21,4 @@ tell application "Firefox"
+   end if
+ end tell
+ 
+-return "{ \"browser\": \"" & browser & "\", \"title\": \"" & replace_chars(title_string, "\"", "Ò") & "\" }"
++return "{ \"browser\": \"" & browser & "\", \"title\": \"" & replace_chars(title_string, "\"", "ï¿½") & "\" }"
+diff --git a/lib/scripts/firefox-dev-audio.applescript b/lib/scripts/firefox-dev-audio.applescript
+old mode 100644
+new mode 100755
+index 6618fec..96861c5
+--- a/lib/scripts/firefox-dev-audio.applescript
++++ b/lib/scripts/firefox-dev-audio.applescript
+@@ -21,4 +21,4 @@ tell application "Firefox Developer Edition"
+   end if
+ end tell
+ 
+-return "{ \"browser\": \"" & browser & "\", \"title\": \"" & replace_chars(title_string, "\"", "Ò") & "\" }"
++return "{ \"browser\": \"" & browser & "\", \"title\": \"" & replace_chars(title_string, "\"", "ï¿½") & "\" }"
+diff --git a/lib/scripts/init-aerospace.sh b/lib/scripts/init-aerospace.sh
+old mode 100644
+new mode 100755
+diff --git a/lib/scripts/init-flashspace.sh b/lib/scripts/init-flashspace.sh
+old mode 100644
+new mode 100755
+diff --git a/lib/scripts/init-yabai.sh b/lib/scripts/init-yabai.sh
+old mode 100644
+new mode 100755
+index 5dbbfe3..37c994a
+--- a/lib/scripts/init-yabai.sh
++++ b/lib/scripts/init-yabai.sh
+@@ -74,11 +74,11 @@ fi
+ 
+ # Determine skhd mode based on the display_skhd_mode flag and disable_signals flag
+ if [ $display_skhd_mode = "true" ]; then
+-  SCRIPT_DIR=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
++  SCRIPT_DIR=$(cd . && pwd)
+   if [ $disable_signals = "false" ]; then
+-    skhd_mode=$(cat "$("${SCRIPT_DIR}"/yabai-set-mode.sh --query)")
++    skhd_mode=$(cat "$("${SCRIPT_DIR}"/simple-bar/lib/scripts/yabai-set-mode.sh --query)")
+   else
+-    skhd_mode=$(cat "$("${SCRIPT_DIR}"/yabai-set-mode-server.sh --query)")
++    skhd_mode=$(cat "$("${SCRIPT_DIR}"/simple-bar/lib/scripts/yabai-set-mode-server.sh --query)")
+   fi
+ else
+   skhd_mode="{}"
+diff --git a/lib/scripts/run-command-in-iterm2.applescript b/lib/scripts/run-command-in-iterm2.applescript
+old mode 100644
+new mode 100755
+diff --git a/lib/scripts/run-command-in-terminal.applescript b/lib/scripts/run-command-in-terminal.applescript
+old mode 100644
+new mode 100755

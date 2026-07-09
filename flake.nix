@@ -20,13 +20,29 @@
     nixpkgs-python.url = "github:cachix/nixpkgs-python";
 
     helix-flake.url = "github:helix-editor/helix";
+
+    nix-fish = {
+      url = "github:kidonng/nix.fish";
+      flake = false;
+    };
+
+    simple-bar = {
+      url = "github:Jean-Tinland/simple-bar/7673cbbc56973748897bcae15afc135865694351";
+      flake = false;
+    };
   };
 
   # Load the blueprint
-  outputs = inputs:
+  outputs =
+    inputs:
     inputs.blueprint {
       inherit inputs;
-      systems = ["aarch64-linux" "aarch64-darwin" "x86_64-linux" "x86_64-darwin"];
+      systems = [
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-linux"
+        "x86_64-darwin"
+      ];
       nixpkgs.config.allowUnfree = true;
     };
 }

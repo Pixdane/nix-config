@@ -2,16 +2,44 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
-    inputs.self.modules.common.host-shared
-    inputs.self.darwinModules.host-shared
-    inputs.self.darwinModules.yabai
+    inputs.self.modules.system.base
+    inputs.self.darwinModules.base
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  users.users.pixdane.home = /Users/pixdane;
+  pixdane.system = {
+    nix.trustedUsers = [ "pixdane" ];
+    fishShell.enable = true;
+    helix.enable = true;
+  };
+
+  pixdane.darwin.windowManager = {
+    backend = "yabai";
+    bar = "simple-bar";
+
+    yabai = {
+      scriptingAddition.enable = true;
+
+      unmanagedApps = [
+        "系统设置"
+        "QQ"
+        "微信"
+        "Raycast"
+        "归档实用工具"
+        "Microsoft To Do"
+        "Steam"
+      ];
+    };
+  };
+
+  users.users.pixdane = {
+    home = "/Users/pixdane";
+    shell = pkgs.fish;
+  };
 
   system.primaryUser = "pixdane";
 
