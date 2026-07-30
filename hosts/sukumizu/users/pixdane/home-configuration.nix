@@ -22,6 +22,7 @@
 
   # 全局鼠标指针主题：同步 GTK / dconf / XDG 环境变量
   home.pointerCursor = {
+    enable = true;
     package = pkgs.apple-cursor;
     name = "macOS";
     size = 24;
