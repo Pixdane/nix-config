@@ -20,6 +20,15 @@
     "wezterm"
   ];
 
+  # 全局鼠标指针主题：同步 GTK / dconf / XDG 环境变量
+  home.pointerCursor = {
+    package = pkgs.apple-cursor;
+    name = "macOS";
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
   home.packages = with pkgs; [
     kdePackages.dolphin
     kdePackages.plasma-systemmonitor

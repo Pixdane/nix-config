@@ -28,6 +28,7 @@ environment {
 
 // 光标设置
 cursor {
+    xcursor-theme "macOS"
     xcursor-size 24
     hide-when-typing
 }
