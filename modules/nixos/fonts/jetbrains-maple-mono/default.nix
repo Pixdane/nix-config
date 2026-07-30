@@ -5,7 +5,7 @@
 let
   src = fetchzip {
     url = "https://github.com/SpaceTimee/Fusion-JetBrainsMapleMono/releases/download/1.2304.79/JetBrainsMapleMono-NF-XX-XX-XX.zip";
-    hash = "sha256-V8hLVGbADfzN0eaUUVoLYj/aN3TSCwWhNWDEpbC6wVY=";
+    hash = "sha256-SPw1OeUXSuO6N6+XFkvJ4F6JGQRn5V7hBxhax+b8bgs=";
     stripRoot = false;
   };
 in
