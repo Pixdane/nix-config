@@ -1,2 +1,4 @@
 .vscode/
 .backups/
+codemap.*
+.DS_Store
