@@ -37,6 +37,8 @@
     vscode-fhs
     jetbrains.idea
     opencode
+  ] ++ [
+    inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.openchamber
   ];
 
   # niri / noctalia 配置使用 mkOutOfStoreSymlink 直接指向仓库源文件

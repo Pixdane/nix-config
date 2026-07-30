@@ -267,16 +267,36 @@ in
 
 ## 7. 验证清单（成功标准）
 
-- [ ] `nix build .#packages.<system>.openchamber` 在 `aarch64-darwin` 与
-      `x86_64-linux` 均成功。
-- [ ] `openchamber --version` 输出 `1.17.1`。
-- [ ] `openchamber serve` 可起 HTTP 服务，UI 可访问，终端 PTY 可交互。
-- [ ] `nix flake check` 通过（含 Blueprint 自动生成的 `pkgs-openchamber` check）。
-- [ ] 开启 feature 的主机 rebuild 后 `which openchamber` 指向 Nix store 路径。
+- [x] `nix build .#packages.<system>.openchamber` 在 `aarch64-darwin` 成功
+      （`/nix/store/x7wgwyllx0fr62bpyf59vf8g2p0d94a1-openchamber-1.17.1`）。
+- [x] `openchamber --version` 输出 `1.17.1`。
+- [x] `openchamber serve` 可起 HTTP 服务（HTTP 200），原生模块
+      （better-sqlite3 / node-pty）正常加载，graceful shutdown 可用。
+- [x] `nix flake check` 中 `pkgs-openchamber` check 通过。
+- [x] Home Manager `home.path` 含 openchamber 并指向 Nix store 路径
+      （`home-manager-path/bin/openchamber` -> `.../openchamber-1.17.1/bin/openchamber`）。
+- [ ] `x86_64-linux` 交叉构建（未在本次验证，需 Linux 主机）。
 
 ---
 
-## 8. 后续可选增强（非本次范围）
+## 8. Caveat 与 Nix 语义
+
+打包产物的**日常用法与原版一致**（`serve`/`stop`/`tunnel`/`--port`/`--ui-password`/
+`--lan`/`OPENCODE_HOST` 等），但以下三点在 Nix 语义下需注意：
+
+1. **`openchamber update` 失效** -- Nix store 路径只读，自更新写入会失败。
+   正确做法：改 flake 的 `version` 常量 + `npmDepsHash` 重新 `nix build`。
+2. **`openchamber startup enable/disable/status` 与声明式管理冲突** -- 该子命令
+   直接落 systemd/launchd 服务文件，在 NixOS/nix-darwin 下会被声明式配置覆盖。
+   推荐改用 Nix module 托管服务（见第 9 节）。
+3. **`openchamber stop` 是全局的** -- daemon 按端口/pidfile 全局管理，不区分二进制
+   来源。多实例共存时 `stop` 会影响所有实例（包括非 Nix 安装的）。
+   **验证打包产物时**：起测试实例后应记录其 PID 直接 `kill <PID>`，不要调用
+   全局 `openchamber stop`。
+
+---
+
+## 9. 后续可选增强（非本次范围）
 
 - **NixOS module**：`modules/nixos/openchamber.nix` 提供 `systemd.services.openchamber`
   托管，对应上游 `startup enable` 语义。
@@ -284,3 +304,5 @@ in
 - **Docker/Nix container**：`pkgs.dockerTools.buildImage` 镜像，替代上游 Dockerfile。
 - **`withVoice` 变体**：把 `sherpa-onnx-node` 纳入的可选 passthru。
 - **自建 `buildBunPackage`** 上游化（长期）。
+- **Linux `node-pty` shell**：NixOS 下 PTY 默认找 `/bin/bash`，需 wrapper 注入
+  `SHELL=${runtimeShell}`（macOS 无此问题）。
