@@ -30,6 +30,14 @@
       url = "github:Jean-Tinland/simple-bar/7673cbbc56973748897bcae15afc135865694351";
       flake = false;
     };
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
+
+    # Noctalia 桌面 shell（使用 cachix 分支确保二进制缓存命中）
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
+
+    # xremap - 支持 per-app 映射的键位重映射器（原生支持 niri）
+    xremap-flake.url = "github:xremap/nix-flake";
   };
 
   # Load the blueprint
