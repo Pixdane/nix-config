@@ -9,5 +9,6 @@
     ./nix-your-shell.nix
     ./pay-respects.nix
     ./tools.nix
+    ./wezterm.nix
   ];
 }

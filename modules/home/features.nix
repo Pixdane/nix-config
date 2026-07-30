@@ -15,6 +15,8 @@ let
     "nixYourShell"
     "payRespects"
     "tools"
+    "wezterm"
+    "rime"
   ];
 
   mkFeatureOption =
