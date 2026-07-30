@@ -4,6 +4,11 @@
   ...
 }:
 {
+  # Noctalia 已在 nixpkgs-unstable 上游化（nixos/modules/programs/wayland/noctalia.nix），
+  # 与 flake 的 inputs.noctalia.nixosModules.default 重复声明 programs.noctalia.enable。
+  # 这里禁用上游模块，保留 flake 模块以命中 noctalia cachix 二进制缓存。
+  disabledModules = [ "programs/wayland/noctalia.nix" ];
+
   imports = [
     inputs.noctalia.nixosModules.default
     ./greetd.nix
