@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{ pkgs, ... }: {
   programs.fish = {
     shellAliases = {
       code = "open -a \"Visual Studio Code\"";

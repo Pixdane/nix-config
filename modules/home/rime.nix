@@ -42,7 +42,8 @@ let
   rimeDataPkgs = [
     pkgs.rime-ice
     rimeDefault
-  ] ++ rimePatches;
+  ]
+  ++ rimePatches;
 in
 {
   # 仅 macOS 生效：把 rime-ice 数据放到 Squirrel 用户目录 ~/Library/Rime/
@@ -54,6 +55,7 @@ in
       (pkgs.symlinkJoin {
         name = "rime-ice-data";
         paths = rimeDataPkgs;
-      }) + "/share/rime-data";
+      })
+      + "/share/rime-data";
   };
 }

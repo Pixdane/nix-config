@@ -45,7 +45,8 @@ let
   rimeDataPkgs = [
     pkgs.rime-ice
     rimeDefault
-  ] ++ rimePatches;
+  ]
+  ++ rimePatches;
 in
 {
   options.pixdane.desktop.inputMethods = {

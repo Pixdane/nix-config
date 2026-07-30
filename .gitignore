@@ -2,3 +2,5 @@
 .backups/
 codemap.*
 .DS_Store
+result
+result-*

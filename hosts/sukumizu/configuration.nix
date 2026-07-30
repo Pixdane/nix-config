@@ -27,10 +27,22 @@
     flatpak = {
       enable = true;
       packages = [
-        { appId = "com.github.tchx84.Flatseal"; origin = "flathub"; } # Flatpak 权限管理 GUI
-        { appId = "app.zen_browser.zen"; origin = "flathub"; } # Zen Browser
-        { appId = "com.bitwarden.desktop"; origin = "flathub"; } # Bitwarden
-        { appId = "org.mozilla.Thunderbird"; origin = "flathub"; } # Thunderbird 邮件客户端
+        {
+          appId = "com.github.tchx84.Flatseal";
+          origin = "flathub";
+        } # Flatpak 权限管理 GUI
+        {
+          appId = "app.zen_browser.zen";
+          origin = "flathub";
+        } # Zen Browser
+        {
+          appId = "com.bitwarden.desktop";
+          origin = "flathub";
+        } # Bitwarden
+        {
+          appId = "org.mozilla.Thunderbird";
+          origin = "flathub";
+        } # Thunderbird 邮件客户端
       ];
     };
   };

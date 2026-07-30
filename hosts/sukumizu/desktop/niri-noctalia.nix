@@ -22,7 +22,10 @@ in
     # === NVIDIA PRIME Render Offload(Pascal GTX 1050 Mobile) ===
     # niri(Wayland)下 iGPU 负责显示输出,dGPU 仅按需渲染后回拷。
     # 与 kde-nvidia 的 prime.sync(X11-only)互斥;offload 兼容 Wayland。
-    services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
+    services.xserver.videoDrivers = [
+      "modesetting"
+      "nvidia"
+    ];
     # 注意:services.xserver.enable 保持 false(niri 不需要 Xorg server),
     # videoDrivers 仅作为触发 nixpkgs nvidia 模块的开关(惰性,不生成 xorg.conf)。
 
@@ -45,6 +48,10 @@ in
 
     # 纯 Wayland 下 nixpkgs 不会自动加载 nvidia 内核模块(仅 services.xserver.enable=true 时才加载),
     # 必须手动声明,否则 dGPU 无法被 offload 调用。
-    boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_drm" ];
+    boot.kernelModules = [
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_drm"
+    ];
   };
 }
