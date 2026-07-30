@@ -49,8 +49,8 @@ input {
     }
 
     touchpad {
-        tap true
-        natural-scroll true
+        tap
+        natural-scroll
         dwt                  // 键入时禁用（防手掌误触）
         click-method "clickfinger"
         drag-lock            // 拖拽时短暂抬指不取消
@@ -60,10 +60,8 @@ input {
     warp-mouse-to-focus mode="center-xy"
 }
 
-outputs {
-    // 显示器配置留空，niri 会自动检测
-    // 连接外接显示器后运行 `niri msg outputs` 获取名称再配置
-}
+// 显示器配置：留空则 niri 自动检测
+// 连接外接显示器后运行 `niri msg outputs` 获取名称，再用 `output "名称" { }` 配置
 
 // === 启动 ===
 
@@ -213,11 +211,11 @@ binds {
     Alt+Shift+4 { screenshot; }
 
     // --- 窗口管理 ---
-    Ctrl+W { close-focus-window; }
+    Ctrl+W { close-window; }
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // 布局
-    Mod+R { switch-preset-column; }
+    Mod+R { switch-preset-column-width; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
     Mod+C { center-column; }
