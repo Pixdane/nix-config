@@ -1,0 +1,293 @@
+// niri 配置 - 通过 mkOutOfStoreSymlink 软链接到 ~/.config/niri/config.kdl
+// 修改此文件后无需 rebuild，niri 会自动重载
+// 文档: https://github.com/YaLTeR/niri/wiki/Configuration
+//
+// 修饰键: Mod = Super（物理 Super 键）
+//   xremap 接管物理 Alt 作为 macOS Command（Alt+C -> Ctrl+C 等），
+//   物理 Super 作为 macOS Option（Super+方向键 按词移动）。
+//   niri 窗口管理用 Mod(Super)，与 xremap 的 Cmd(Alt) 互不冲突。
+//   Mod+1~9 工作区与浏览器标签页不再冲突（工作区走 Super，标签页走 Alt）。
+
+// === 基础设置 ===
+
+// 移除客户端装饰（CSD），让 niri 的边框/聚焦环正确环绕窗口
+prefer-no-csd
+
+// 启动时不显示快捷键帮助浮层
+hotkey-overlay {
+    skip-at-startup
+}
+
+// 环境变量提示工具包使用 Wayland 后端
+// 注意: 不设 DISPLAY=null，niri 26.04 内置 xwayland-satellite 会自动设置
+environment {
+    QT_QPA_PLATFORM "wayland"
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    XDG_CURRENT_DESKTOP "niri"
+}
+
+// 光标设置
+cursor {
+    xcursor-size 24
+    hide-when-typing
+}
+
+// 截图保存路径
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+// === 输入 ===
+
+input {
+    keyboard {
+        xkb {
+            layout "us"
+        }
+        repeat-delay 250
+        repeat-rate 40
+        track-layout "global"
+    }
+
+    touchpad {
+        tap true
+        natural-scroll true
+        dwt                  // 键入时禁用（防手掌误触）
+        click-method "clickfinger"
+        drag-lock            // 拖拽时短暂抬指不取消
+    }
+
+    // 键盘切换窗口后鼠标自动跟随到聚焦窗口
+    warp-mouse-to-focus mode="center-xy"
+}
+
+outputs {
+    // 显示器配置留空，niri 会自动检测
+    // 连接外接显示器后运行 `niri msg outputs` 获取名称再配置
+}
+
+// === 启动 ===
+
+spawn-at-startup "noctalia"
+
+// === 窗口规则 ===
+
+// 通用：圆角 + 裁剪到几何形状（macOS 风格 10px）
+window-rule {
+    geometry-corner-radius 10
+    clip-to-geometry true
+}
+
+// Noctalia 设置窗口（浮动）
+window-rule {
+    match app-id="dev.noctalia.Noctalia"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
+}
+
+// WezTerm 启动修复（官方默认配置推荐）
+window-rule {
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+// 浏览器画中画（浮动，覆盖 Firefox/Zen/Chrome/Chromium/Brave）
+window-rule {
+    match app-id=r#"^(firefox|dev\.zen_browser\.zen|com\.google\.Chrome|org\.chromium\.Chromium|com\.brave\.Browser)$"#
+    match title=r#"^Picture[- ]in[- ][Pp]icture$"#
+    open-floating true
+}
+
+// 密码管理器：屏蔽截图/屏幕共享
+window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    block-out-from "screen-capture"
+}
+window-rule {
+    match app-id=r#"^com\.bitwarden\.desktop$"#
+    block-out-from "screen-capture"
+}
+
+// Steam 通知（浮动到右下角）
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
+// === Noctalia 集成 ===
+
+debug {
+    // 允许 Noctalia 的通知操作和窗口激活
+    honor-xdg-activation-with-invalid-serial
+}
+
+// Noctalia 壁纸放在 backdrop 层
+layer-rule {
+    match namespace="^noctalia-backdrop"
+    place-within-backdrop true
+}
+
+// === 手势 ===
+
+// 热角：鼠标移到右下角触发概览（关闭默认的左上角，避免误触）
+gestures {
+    hot-corners {
+        // top-left      // 默认开启，注释掉以禁用
+        bottom-right
+    }
+}
+
+// === 布局 ===
+
+layout {
+    background-color "transparent"
+    focus-ring {
+        width 2
+    }
+    gaps 8
+
+    // 新窗口默认半屏宽
+    default-column-width { proportion 0.5; }
+    // 单列时居中显示
+    always-center-single-column
+
+    // 窗口阴影
+    shadow {
+        on
+        softness 30
+        spread 5
+        offset x=0 y=5
+        color "#00000050"
+        draw-behind-window true
+    }
+}
+
+// === 动画 ===
+
+animations {
+    window-open {
+        duration-ms 100
+        curve "ease-out-quad"
+    }
+    window-close {
+        duration-ms 100
+        curve "ease-out-quad"
+    }
+    workspace-switch {
+        spring damping-ratio=1.0 stiffness=1200 epsilon=0.0001
+    }
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=1000 epsilon=0.0001
+    }
+}
+
+// === 快捷键（Mod = Alt = 物理 Super）===
+
+binds {
+    // --- 应用启动 ---
+    Mod+Space { spawn "wezterm"; }
+
+    // --- Noctalia 核心 ---
+    Alt+Space { spawn-sh "noctalia msg panel-toggle launcher"; }
+    Mod+S { spawn-sh "noctalia msg panel-toggle control-center"; }
+    Mod+Comma { spawn-sh "noctalia msg settings-toggle"; }
+    Mod+Tab { spawn-sh "noctalia msg window-switcher"; }
+
+    // --- 截图（niri 内置）---
+    Print { screenshot; }              // 选区截图
+    Shift+Print { screenshot-screen; } // 整屏截图
+    Alt+Shift+3 { screenshot-screen; }
+    Alt+Shift+4 { screenshot; }
+
+    // --- 窗口管理 ---
+    Ctrl+W { close-focus-window; }
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
+    // 布局
+    Mod+R { switch-preset-column; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+C { center-column; }
+
+    // 窗口尺寸微调
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
+
+    // 列管理：窗口并入/弹出相邻列
+    Mod+BracketLeft { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+
+    // 概览与浮动
+    Mod+O repeat=false { toggle-overview; }
+    Mod+V { toggle-window-floating; }
+    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+
+    // --- 焦点移动（vim 风格 h/j/k/l）---
+    Mod+H { focus-column-left; }
+    Mod+J { focus-window-down; }
+    Mod+K { focus-window-up; }
+    Mod+L { focus-column-right; }
+
+    // --- 移动窗口/列 ---
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+J { move-window-down; }
+    Mod+Shift+K { move-window-up; }
+    Mod+Shift+L { move-column-right; }
+
+    // --- 工作区 ---
+    Mod+grave { focus-workspace-previous; }
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    // 滚轮切换/移动工作区
+    Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp cooldown-ms=150 { move-column-to-workspace-up; }
+
+    // --- 会话 ---
+    Mod+Shift+P { power-off-monitors; }
+    Mod+Shift+E { quit; }
+
+    // --- 音量和亮度（锁屏时也可用）---
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "noctalia msg volume-up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "noctalia msg volume-down"; }
+    XF86AudioMute allow-when-locked=true { spawn-sh "noctalia msg volume-mute"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn-sh "noctalia msg brightness-up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "noctalia msg brightness-down"; }
+
+    // --- 媒体控制（锁屏时也可用）---
+    XF86AudioPlay allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioPause allow-when-locked=true { spawn-sh "playerctl play-pause"; }
+    XF86AudioPrev allow-when-locked=true { spawn-sh "playerctl previous"; }
+    XF86AudioNext allow-when-locked=true { spawn-sh "playerctl next"; }
+    XF86AudioMicMute allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
+}
+
+// === 系统事件 ===
+
+// 合盖锁定
+switch-events {
+    lid-close { spawn "noctalia" "msg" "session" "lock-and-suspend"; }
+}

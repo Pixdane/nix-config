@@ -1,0 +1,18 @@
+# Noctalia 配置 - 通过 mkOutOfStoreSymlink 软链接到 ~/.config/noctalia/config.toml
+# 修改此文件后无需 rebuild，重启 Noctalia 即可生效
+# 文档: https://docs.noctalia.dev/v5/
+
+[theme]
+mode = "dark"
+source = "builtin"
+builtin = "Catppuccin"
+
+[wallpaper]
+enabled = true
+
+[shell]
+# niri overview 中输入即搜索启动应用（实验性）
+niri_overview_type_to_launch_enabled = true
+
+[notification]
+enable_daemon = true

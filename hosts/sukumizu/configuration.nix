@@ -7,8 +7,14 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./desktop
+    ./gaming.nix
     inputs.self.modules.system.base
     inputs.self.nixosModules.base
+    inputs.self.nixosModules.desktop
+    inputs.self.nixosModules.flatpak
+    inputs.self.nixosModules.xremap
+    inputs.self.nixosModules.fonts
   ];
 
   nixpkgs.hostPlatform = "x86_64-linux";
@@ -17,11 +23,24 @@
     nix.trustedUsers = [ "pixdane" ];
     fishShell.enable = true;
     helix.enable = true;
+    xremap.enable = true;
+    flatpak = {
+      enable = true;
+      packages = [
+        { appId = "com.github.tchx84.Flatseal"; origin = "flathub"; } # Flatpak 权限管理 GUI
+        { appId = "app.zen_browser.zen"; origin = "flathub"; } # Zen Browser
+        { appId = "com.bitwarden.desktop"; origin = "flathub"; } # Bitwarden
+        { appId = "org.mozilla.Thunderbird"; origin = "flathub"; } # Thunderbird 邮件客户端
+      ];
+    };
   };
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # Bootloader: Limine
+  boot.loader = {
+    systemd-boot.enable = false; # 关闭旧引导，避免与 Limine 冲突
+    efi.canTouchEfiVariables = true;
+    limine.enable = true;
+  };
 
   networking.hostName = "sukumizu";
 
@@ -50,51 +69,8 @@
     LC_TIME = "zh_CN.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver = {
-    enable = true; # PRIME sync 仅限 X11，需要显式启用
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-    videoDrivers = [ "nvidia" ];
-  };
-
-  # === KDE Plasma 6 ===
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = false; # PRIME sync 仅限 X11，使用 X11 登录界面更稳定
-  };
-  services.desktopManager.plasma6.enable = true;
-
-  # === NVIDIA Pascal GTX 1050 Mobile (Intel + NVIDIA Optimus) ===
-  # Pascal 架构只能用 PRIME sync 模式（offload 需要 Turing+），NVIDIA 始终通电
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true; # 32 位应用（Wine、Steam）
-  };
-
-  hardware.nvidia = {
-    modesetting.enable = true; # KMS，添加 nvidia-drm.modeset=1
-    open = false; # Pascal 不支持开源内核模块（需 Turing+）
-
-    # Pascal 已被 stable 595+ 弃用，必须使用 legacy_580 分支
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
-
-    # PRIME sync：NVIDIA 渲染一切，Intel iGPU 仅作显示输出（仅 X11）
-    prime = {
-      sync.enable = true;
-
-      # lspci 0000:00:02.0 (Intel) -> PCI:0:2:0
-      intelBusId = "PCI:0:2:0";
-      # lspci 0000:01:00.0 (NVIDIA) -> PCI:1:0:0
-      nvidiaBusId = "PCI:1:0:0";
-    };
-
-    # Pascal 不支持 finegrained（需 Turing+ 和 offload）和 Dynamic Boost（需 Ampere+）
-    powerManagement.enable = true; # 挂起时保留 VRAM（实验性）
-    nvidiaSettings = true;
-  };
+  # 桌面环境与 GPU 模式：可选 "kde-nvidia" / "niri-noctalia" / "none"
+  pixdane.sukumizu.desktop = "niri-noctalia";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.pixdane = {
@@ -110,9 +86,20 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [ ];
+  environment.systemPackages = with pkgs; [
+    warehouse # Flatpak 管理 GUI(浏览/安装/更新/管理 remotes)
+  ];
 
   services.openssh.enable = true;
+
+  # === 音频(PipeWire) ===
+  services.pipewire = {
+    enable = true;
+    audio.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true; # programs.steam.enable 已隐式设置,此处显式声明
+    pulse.enable = true;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
